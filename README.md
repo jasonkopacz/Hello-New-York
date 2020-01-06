@@ -4,10 +4,14 @@ A data visualization of the top 100 most used words of the top 5-10 languages in
 
 # MVP's
 
-User's will be able to 
-    * View the top 100 words of a language spoken in a NYC borough
-    * Select from 5 different languages in that borough
-    * View demographic information about that language in that borough.
+User's will be able to
+
+     * View the top 100 words of a language spoken in a NYC borough
+     
+     * Select from 5 different languages in that borough 
+     
+     * View demographic information about that language in that borough. 
+     
     
 # Wireframes
 
