@@ -4,11 +4,50 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="stylesheet" href="./dist/main.css" />
+    <link rel="stylesheet" href="./src/styles/map.scss" />
     <title>Document</title>
+    <style>
+      #boroughs {
+        stroke: grey;
+        stroke-width: 2px;
+        fill: steelblue;
+      }
+    </style>
   </head>
-
+  
   <body>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://d3js.org/d3.v5.js"></script>
     <script src="./dist/main.js"></script>
+    <!-- <script src="./borough_boundaries.geojson"></script> -->
+  
+    <script>
+
+        let width = 500,
+            height = 500;
+
+            
+            let svg = d3.select("body").append("svg")
+            .attr("width", width)
+            .attr("height", height);
+            
+            d3.json("borough_boundaries.geojson", function (error, boroughs) {
+              
+              let projection = d3.geo.mercator()
+                .scale(200000)
+                .translate([width / 2, height / 2]);
+            let center = d3.geo.centroid(boroughs);
+            projection.center(center);
+            let path = d3.geo.path().projection(projection);
+            svg.selectAll("path")
+              .data(boroughs.features)
+              .enter()
+              .append("path")
+              .attr("d", path)
+              .attr('fill', 'blue')
+          });
+
+
+    </script>
   </body>
 </html>

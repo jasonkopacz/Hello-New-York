@@ -22,6 +22,7 @@
     "autoprefixer": "^9.6.4",
     "babel-loader": "^8.0.6",
     "css-loader": "^3.2.0",
+    "d3": "^5.15.0",
     "fibers": "^4.0.1",
     "mini-css-extract-plugin": "^0.8.0",
     "node-sass": "^4.12.0",
