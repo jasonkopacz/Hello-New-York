@@ -18,6 +18,11 @@
     <h2 class="languages"></h2>
     <div class="words-yo"></div>
     <style>
+
+      body {
+        background-color: black;
+      }
+
       .languages {
         display: flex;
         flex-direction: column;
@@ -44,7 +49,7 @@
               .attr("y", 10)
               .attr("width", 300)
               .attr("height", 450)
-              .attr("stroke", "black")
+              .attr("stroke", "rgb(107, 174, 214)")
               .attr("fill", "white")
             
             d3.json("borough_boundaries.geojson", function (boroughs) {
