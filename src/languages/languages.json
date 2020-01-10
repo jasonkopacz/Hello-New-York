@@ -1,0 +1,41 @@
+{
+  "Bronx": {
+    "Spanish": "584,463",
+    "English": "555,767",
+    "Yoruba": "27,439",
+    "Bengali": "14,539",
+    "French": "12,730"
+  },
+
+  "Brooklyn": {
+    "English": "1,278,668",
+    "Spanish": "400,841",
+    "Chinese": "170,427",
+    "russian": "400,841",
+    "Yiddish": "130,714"
+  },
+
+  "Manhattan": {
+    "English": "927,650",
+    "Spanish": "350,112",
+    "Chinese": "83,013",
+    "French": "34,246",
+    "Korean": "13,138"
+  },
+
+  "Queens": {
+    "English": "940,264",
+    "Spanish": "515,885",
+    "Chinese": "192,448",
+    "Bengali": "60,042",
+    "Korean": "49,438"
+  },
+
+  "Staten Island": {
+    "English": "307,701",
+    "Spanish": "48,114",
+    "Russian": "14,660",
+    "Italian": "11,764",
+    "Chinese": "11,443"
+  }
+}

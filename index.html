@@ -11,44 +11,126 @@
   <body>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
   <script src="http://d3js.org/d3.v4.min.js" charset="utf-8"></script>
+  <script src="https://d3js.org/d3-transition.v1.min.js"></script>
     <script src="./dist/main.js"></script>
-    <!-- <script src="./borough_boundaries.geojson"></script> -->
-    
+    <header>Langauges of NYC</header>
     <div class="map"></div>
+    <h2 class="languages"></h2>
+    <style>
+      .languages {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 3em;
+        left: 3em;
+      }
+    </style>
 
 
     <script>
-        let width = 500,
-            height = 500;
+     
+
+      
+        let width = 1250,
+            height = 800;
         let svg = d3.select(".map").append("svg")
             .attr("width", width)
             .attr("height", height);
 
             let g = svg.append("g");
+            g.append("rect")
+              .attr("x", 10)
+              .attr("y", 10)
+              .attr("width", 300)
+              .attr("height", 450)
+              .attr("stroke", "black")
+              .attr("fill", "white")
             
             d3.json("borough_boundaries.geojson", function (boroughs) {
-              var albersProjection = d3.geoAlbers()
-              .scale(190000)
-              .rotate([71.057, 0])
-              .center([0, 42.313])
-              .translate([width / 2, height / 2]);
-
-              var projection = d3.geoMercator()
+              let projection = d3.geoMercator()
                 .center([-73.94, 40.70])
-                .scale(50000)
+                .scale(80000)
                 .translate([(width) / 2, (height) / 2]);
+
+              const color = d3.scaleOrdinal(d3.schemeCategory20c.slice(1, 4));
               
-              var geoPath = d3.geoPath()
+              let geoPath = d3.geoPath()
               .projection(projection);
               g.selectAll("path")
               .data(boroughs.features)
               .enter()
               .append("path")
-              .attr("fill", "lightgray")
+              .attr("fill", (d, i) => color(i))
               .attr("stroke", "#000")
               .attr("stroke-width", "1.5px")
               .attr("d", geoPath)
+              .on("mouseover", mouseOverHandler)
+              .on("mouseout", mouseOutHandler)
+              .on("click", clickHandler);
+              g.append("g")
+                .selectAll("text")
+                .data(boroughs.features)
+                .enter()
+                .append("text")
+                .attr("class", "unselected")
+                .attr("transform", d => `translate(${geoPath.centroid(d)})`)
+                .attr("text-anchor", "middle")
+                .attr("font-size", 15)
+                .text(d => d.properties.boro_name);
+                
+                const hoverColor = "red"
+                let boroLanguages;
+                d3.json("src/languages/languages.json", languages => {
+                  boroLanguages = languages;
+                })
+                function mouseOverHandler(d, i) {
+                  d3.select(this).attr("fill", hoverColor)
+                }
+                function mouseOutHandler(d, i) {
+                  d3.select(this).attr("fill", color(i))
+                }
+                function clickHandler(d, i) {
+                  const boro = d.properties.boro_name
+                  const languages = boroLanguages[boro]
+                  const langs = Object.keys(languages)
+                  const nums = Object.values(languages)
+                  const displayText = `${(langs[0])}: ${ nums[0] } \n 
+                    ${ (langs[1]) }: ${ nums[1] } \n 
+                    ${ (langs[2]) }: ${ nums[2] }`
+                  
+                function languageClick(d, i) {
+                  const language = d
+                  let words;
+                  d3.json(`src/languages/${d.toLowerCase()}.json`, data => {
+                    words = data
+                    g.append("text")
+                    .attr("text-anchor", "middle")
+                    .attr("font-size", 15)
+                    .style("position", "absolute")
+                    .style("top", "25em")
+                    .style("left", "5em")
+                    .text(d => {debugger
+                     return JSON.stringify(words.adjective)})
+                  })
+                  
+                }
+                  
+                  // console.log(langs)
+                  // console.log(nums)
+                  // console.log(languages)
+                  d3.select(".languages")
+                  .selectAll("input")
+                  .data(Object.keys(languages))
+                  .enter()
+                  .append("input")
+                  .attr("type", "button")
+                  .attr("class", "button")
+                  .attr("value", (d) => { return d; })
+                  .on("click", (languageClick))
+                  
+      }
             });
+
             </script>
   </body>
   </html>

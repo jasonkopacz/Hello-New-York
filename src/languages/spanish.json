@@ -1,5 +1,5 @@
-const spanish = {
-  adjective: {
+{
+  "adjective": {
     "más": "more",
     "este": "this",
 	  "todo": "every",
@@ -12,7 +12,7 @@ const spanish = {
     "gran":	"great, big",
     "menos": "less, fewer"
   },
-  adverb: {
+  "adverb": {
     "no":	"no; not",
     "ya":	"already; still",
     "también": "too, also, as well",
@@ -26,7 +26,7 @@ const spanish = {
     "un":	"a, an",
     "una": "a, an, one"
   },
-  verb: {
+  "verb": {
     "es":	"is",
 	  "ha":	"he/ she / it has [done something]; you(formal) have[done something]",
 	  "ser":	"to be",
@@ -42,15 +42,15 @@ const spanish = {
 	  "hace":	"he / she / it does / makes",
 	  "dijo":	"said; told"
   },
-  noun: {
-    "años": "(masculine)	years",
-	"tiempo": "(masculine)	time; weather",
-	"gobierno": "(masculine)	government",
-	"día":	"(masculine)	day",
-	"país": "(masculine)	country",
-	"parte": "(masculine / feminine)	part; message",
-	"vez":	"(feminine)	time, instance",
-	"vida": "(feminine)	life"
+  "noun": {
+    "años": "years",
+	"tiempo": "time; weather",
+	"gobierno": "government",
+	"día":	"day",
+	"país": "country",
+	"parte": "part; message",
+	"vez":	"time, instance",
+	"vida": "life"
   }
-};
+}
 
