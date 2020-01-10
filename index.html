@@ -16,6 +16,7 @@
     <header>Langauges of NYC</header>
     <div class="map"></div>
     <h2 class="languages"></h2>
+    <div class="words-yo"></div>
     <style>
       .languages {
         display: flex;
@@ -103,7 +104,8 @@
                   let words;
                   d3.json(`src/languages/${d.toLowerCase()}.json`, data => {
                     words = data
-                    g.append("text")
+                    d3.select(".words-yo")
+                    .append("text")
                     .attr("text-anchor", "middle")
                     .attr("font-size", 15)
                     .style("position", "absolute")
