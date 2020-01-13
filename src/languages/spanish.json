@@ -1,5 +1,5 @@
 {
-  "adjective": {
+  "words": {
     "más": "more",
     "este": "this",
 	  "todo": "every",
@@ -10,9 +10,7 @@
     "otro":	"other, another",
     "esa": "that",
     "gran":	"great, big",
-    "menos": "less, fewer"
-  },
-  "adverb": {
+    "menos": "less, fewer",
     "no":	"no; not",
     "ya":	"already; still",
     "también": "too, also, as well",
@@ -24,9 +22,7 @@
     "siempre":	"always",
     "el":	"the",
     "un":	"a, an",
-    "una": "a, an, one"
-  },
-  "verb": {
+    "una": "a, an, one",
     "es":	"is",
 	  "ha":	"he/ she / it has [done something]; you(formal) have[done something]",
 	  "ser":	"to be",
@@ -40,17 +36,15 @@
 	  "puede":	"can",
 	  "tiene":	"has",
 	  "hace":	"he / she / it does / makes",
-	  "dijo":	"said; told"
-  },
-  "noun": {
+	  "dijo":	"said; told",
     "años": "years",
-	"tiempo": "time; weather",
-	"gobierno": "government",
-	"día":	"day",
-	"país": "country",
-	"parte": "part; message",
-	"vez":	"time, instance",
-	"vida": "life"
+    "tiempo": "time; weather",
+    "gobierno": "government",
+    "día":	"day",
+    "país": "country",
+    "parte": "part; message",
+    "vez":	"time, instance",
+    "vida": "life"
   }
 }
 

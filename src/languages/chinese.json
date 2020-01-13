@@ -1,5 +1,5 @@
-const chinese = {
-  words: {
+{
+  "words": {
     "的 de": "(possessive particle) of / really and truly / aim, clear",
     "一	yī / yì ／yí":	"one / single / a(n)",
     "是	shì":	"is, are, am, yes to be",
@@ -41,4 +41,4 @@ const chinese = {
     "年	nián":	"year",
     "生	shēng":	"to be born, to give birth, life, to grow"
   }
-};
+}

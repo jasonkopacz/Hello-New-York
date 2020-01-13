@@ -1,7 +1,7 @@
-const yoruba = {
-  words: {
+{
+  "words": {
 	"bi": "as",
-	"Mo" : "ti	I",
+	"Mo" : "I",
 	"rẹ": "his",
 	"ti": "that",
 	"o si": "he",
@@ -12,7 +12,7 @@ const yoruba = {
 	"pẹlu": "with",
 	"ti won": "they",
 	"ki o wa ni": "be",
-	"ni": "at, have, in",
+	"ni": "at, have, in, is",
 	"ọkan": "one",
 	"yi": "this",
 	"lati": "from",
@@ -22,7 +22,6 @@ const yoruba = {
 	"ṣugbọn": "but",
 	"kini": "what",
   "diẹ ninu awọn": "some",
-	"ni	": "is",
 	"o": "it",
 	"ti o": "you",
 	"tabi": "or",
@@ -46,6 +45,6 @@ const yoruba = {
 	"wi": "said",
 	"ohun": "an",
 	"kọọkan": "each",
-	"sọ fun": "tell",
+	"sọ fun": "tell"
   }
-};
+}

@@ -92,7 +92,7 @@
                 function mouseOutHandler(d, i) {
                   d3.select(this).attr("fill", color(i))
                 }
-                function clickHandler(d, i) {
+                function clickHandler(d, i) { 
                   const boro = d.properties.boro_name
                   const languages = boroLanguages[boro]
                   const langs = Object.keys(languages)
@@ -105,16 +105,29 @@
                   const language = d
                   let words;
                   d3.json(`src/languages/${d.toLowerCase()}.json`, data => {
-                    words = data
-                    d3.select(".words-yo")
-                    .append("text")
-                    .attr("text-anchor", "middle")
+
+                    let words = svg.selectAll("text")
+                    .data(Object.keys(data.words))
+                    .enter()
+                    .append("text");
+                    let translations = svg.selectAll("text")
+                    .data(Object.values(data.words))
+                    .enter()
+                    .append("text");
+
+                    // d3.select(".words-yo").selectAll("text").remove()
+                    // d3.select(".words-yo")
+                    // .append("text")
+                    // select individual word/text element
+                    words.text(Object.keys(data.words))
+                    translations.text(Object.values(data.words))
+                    // .selectAll("p").data()
+                    .enter()
+                    // .append("p")
                     .attr("font-size", 15)
-                    .style("position", "absolute")
-                    .style("top", "25em")
-                    .style("left", "5em")
-                    .text(d => {debugger
-                     return JSON.stringify(words.adjective)})
+                    .attr("position", "absolute")
+                    .attr("top", "25em")
+                    .attr("left", "25em")
                   })
                   
                 }
@@ -122,6 +135,9 @@
                   // console.log(langs)
                   // console.log(nums)
                   // console.log(languages)
+
+                  d3.select(".languages")
+                  .selectAll("input").remove()
                   d3.select(".languages")
                   .selectAll("input")
                   .data(Object.keys(languages))
