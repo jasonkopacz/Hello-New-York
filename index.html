@@ -173,10 +173,14 @@
               .data(boroughs.features)
               .enter()
               .append("path")
+              .transition()
+              .delay(1000)
+              .ease(d3.easeLinear)
               .attr("fill", (d, i) => color(i))
               .attr("stroke", "#000")
               .attr("stroke-width", "1.5px")
               .attr("d", geoPath)
+              g.selectAll("path")
               .on("mouseover", mouseOverHandler)
               .on("mouseout", mouseOutHandler)
               .on("click", clickHandler);
@@ -192,7 +196,7 @@
                 .attr("font-size", 20)
                 .text(d => d.properties.boro_name);
                 
-                const hoverColor = "red"
+                const hoverColor = "rgb(190,108,132)"
                 let boroLanguages;
                 d3.json("src/languages/languages.json", languages => {
                   boroLanguages = languages;
@@ -222,6 +226,8 @@
                             .enter()
                             .append("text")
                             .text(function (d) { debugger;return `${d.word} \n` })
+                            // .transition()
+                            // .styleTween("display", function () { return d3.interpolate("none", "block"); })
                         })
                       } else {
                       d3.json(`src/languages/${d.toLowerCase()}.json`, data => {
