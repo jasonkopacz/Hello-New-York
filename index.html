@@ -24,8 +24,18 @@
         display: flex;
         flex-direction: column;
         position: absolute;
-        top: 3em;
-        left: 3em;
+        top: 9em;
+        left: .7em;
+        width: 300px;
+        height: 400px;
+      }
+
+      header {
+        height: 70px;
+        justify-content: center;
+        display: flex;
+        align-items: center;
+        font-size: 30px;
       }
     </style>
 
@@ -48,6 +58,14 @@
               .attr("height", 450)
               .attr("stroke", "rgb(107, 174, 214)")
               .attr("fill", "white")
+              g.append("rect")
+              .attr("x", 500)
+              .attr("y", 500)
+              .attr("width", 500)
+              .attr("height", 500)
+              .attr("stroke", "rgb(107, 174, 214)")
+              .attr("fill", "white")
+              
             
             d3.json("borough_boundaries.geojson", function (boroughs) {
               let projection = d3.geoMercator()
@@ -105,22 +123,23 @@
                   const language = d
                   let words;
                   d3.json(`src/languages/${d.toLowerCase()}.json`, data => {
-
-                    let words = svg.selectAll("text")
-                    .data(Object.keys(data.words))
+                    d3.select(".words-yo").selectAll("text").remove()
+                    let words = d3.select(".words-yo")
+                    .selectAll("text")
+                    .data(data)
                     .enter()
-                    .append("text");
-                    let translations = svg.selectAll("text")
-                    .data(Object.values(data.words))
-                    .enter()
-                    .append("text");
+                    .append("text")
+                    .text(function (d) {return `${d.word}: ${d.translation}, `})
+                    // let translations = d3.select(".words-yo")
+                    // .data(Object.values(data.words))
+                    // .enter()
+                    // .append("text")
 
                     // d3.select(".words-yo").selectAll("text").remove()
                     // d3.select(".words-yo")
                     // .append("text")
                     // select individual word/text element
-                    words.text(Object.keys(data.words))
-                    translations.text(Object.values(data.words))
+                    // translations.text(Object.values(data.words))
                     // .selectAll("p").data()
                     .enter()
                     // .append("p")
@@ -146,6 +165,7 @@
                   .attr("type", "button")
                   .attr("class", "button")
                   .attr("value", (d) => { return d; })
+                  .style("min-height", "75px")
                   .on("click", (languageClick))
                   
       }
