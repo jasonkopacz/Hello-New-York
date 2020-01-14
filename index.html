@@ -4,9 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="icon" href="hello.jpg">
     <link rel="stylesheet" href="./src/styles/index.scss" />
     <link href="https://fonts.googleapis.com/css?family=Cinzel&display=swap" rel="stylesheet">
-    <title>Document</title>
+    <title>Hello, New York</title>
   </head>
   
   <body>
@@ -200,23 +201,31 @@
                   let nums = Object.values(languages)
                   
                     function languageClick(d, i) {
-                      const language = d
-                      let words;
+                      if(d === "English") {
+                        d3.json(`src/languages/english.json`, data => {
+                          d3.select(".words-yo").selectAll("text").remove()
+                          d3.select(".words-header").style("display", "block")
+                          let words = d3.select(".words-yo")
+                            .style("display", "block")
+                            .style("column-count", "6")
+                            .selectAll("text")
+                            .data(data)
+                            .enter()
+                            .append("text")
+                            .text(function (d) { debugger;return `${d.word} \n` })
+                        })
+                      } else {
                       d3.json(`src/languages/${d.toLowerCase()}.json`, data => {
                         d3.select(".words-yo").selectAll("text").remove()
                         d3.select(".words-header").style("display", "block")
                         let words = d3.select(".words-yo")
                         .style("display", "block")
+                        .style("column-count", "3")
                         .selectAll("text")
                         .data(data)
                         .enter()
                         .append("text")
-                        .text(function (d) {
-                          if (d.word in d3.json('src/languages/english.json', data => {return Object.values(data)})) {
-                            return `${d.word}, \n` 
-                          } else {
-                          return `${d.word}: ${d.translation}, \n`}
-                        })
+                        .text(function (d) {return `${d.word}: ${d.translation}, \n`})
                         // let translations = d3.select(".words-yo")
                         // .data(Object.values(data.words))
                         // .enter()
@@ -235,6 +244,7 @@
                         .attr("top", "25em")
                         .attr("left", "25em")
                       })
+                      }
                       
                     }
                       
