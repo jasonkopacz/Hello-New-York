@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" href="./src/styles/index.scss" />
+    <link href="https://fonts.googleapis.com/css?family=Cinzel&display=swap" rel="stylesheet">
     <title>Document</title>
   </head>
   
@@ -13,30 +14,111 @@
   <script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
   <script src="https://d3js.org/d3-transition.v1.min.js"></script>
     <script src="./dist/main.js"></script>
-    <header>Langauges of NYC</header>
+    <header>Languages of NYC</header>
+    <p>Click A Borough To View The Top 5 Languages Spoken</p>
     <div class="map"></div>
     <h2 class="languages"></h2>
+    <h2 class="words-header">Most Frequently Used Words</h2>
     <div class="words-yo"></div>
+    <div class="links">
+      <ul>
+        <a href="https://www.linkedin.com/in/jason-kopacz-2917264a/" target="_blank">
+          <img src="600px-LinkedIn_logo_initials.png" alt="LinkedIn" width="50px" height="50px">  
+        </a>
+        <a href="https://github.com/Alaizard" target="_blank">
+          <img src="github.svg" alt="Github" width="50px" height="50px">  
+        </a>
+        <a href="https://angel.co/jason-kopacz" target="_blank">
+          <img src="angel.jpg" alt="AngelList" width="50px" height="50px">  
+        </a>
+      </ul>
+    </div>
     <style>
 
+
+      .words-header {
+        display: none;
+        position: absolute;
+        top: 1em;
+        right: 15em;
+        margin: 0;
+        padding: 0;
+        font-family: 'Cinzel', serif;
+        color: white;
+      }
+
+      .links {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        height: 200px;
+        width: 50px;
+        position: fixed;
+        right: 3em;
+        top: 0;
+      }
+
+      body {
+        background-image: url("Red Sunset.jpg");
+      }
 
       .languages {
         display: flex;
         flex-direction: column;
         position: absolute;
-        top: 9em;
+        top: 7em;
         left: .7em;
         width: 300px;
         height: 400px;
+        font-family: 'Cinzel', serif;
+      }
+
+      .languages input {
+        min-height: 75px;
+        border: 1px solid rgb(158, 202, 225);
+        font-size: 30px;
+        background-color: transparent;
+        color: white;
+        font-family: 'Cinzel', serif;
+      }
+
+      .languages input:hover {
+        box-shadow: 0px 0px 40px 5px rgb(158, 202, 225);
+      }
+
+      .words-yo {
+        width: 35%;
+        height:fit-content;
+        column-count: 3;
+        column-width: 50px;
+        flex-direction: column;
+        position: absolute;
+        top: 5em;
+        right: 10em;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        border: 1px solid rgb(158, 202, 225);
+        padding: 10px;
+        display: none;
+        font-family: 'Cinzel', serif;
+        color: white;
       }
 
       header {
+        color: white;
         height: 70px;
-        justify-content: center;
         display: flex;
         align-items: center;
         font-size: 30px;
+        font-family: 'Cinzel', serif;
       }
+
+      p {
+        color: white;
+        margin: 0;
+        font-family: 'Cinzel', serif;
+      }
+
     </style>
 
 
@@ -51,20 +133,20 @@
             .attr("height", height);
 
             let g = svg.append("g");
-            g.append("rect")
-              .attr("x", 10)
-              .attr("y", 10)
-              .attr("width", 300)
-              .attr("height", 450)
-              .attr("stroke", "rgb(107, 174, 214)")
-              .attr("fill", "white")
-              g.append("rect")
-              .attr("x", 500)
-              .attr("y", 500)
-              .attr("width", 500)
-              .attr("height", 500)
-              .attr("stroke", "rgb(107, 174, 214)")
-              .attr("fill", "white")
+            // g.append("rect")
+            //   .attr("x", 10)
+            //   .attr("y", 10)
+            //   .attr("width", 300)
+            //   .attr("height", 450)
+            //   .attr("stroke", "rgb(107, 174, 214)")
+            //   .attr("fill", "white")
+              // g.append("rect")
+              // .attr("x", 500)
+              // .attr("y", 500)
+              // .attr("width", 500)
+              // .attr("height", 500)
+              // .attr("stroke", "rgb(107, 174, 214)")
+              // .attr("fill", "white")
               
             
             d3.json("borough_boundaries.geojson", function (boroughs) {
@@ -93,10 +175,11 @@
                 .data(boroughs.features)
                 .enter()
                 .append("text")
-                .attr("class", "unselected")
+                .attr("class", "boros")
                 .attr("transform", d => `translate(${geoPath.centroid(d)})`)
+                .attr("font-family", "Cinzel, serif")
                 .attr("text-anchor", "middle")
-                .attr("font-size", 15)
+                .attr("font-size", 20)
                 .text(d => d.properties.boro_name);
                 
                 const hoverColor = "red"
@@ -111,64 +194,68 @@
                   d3.select(this).attr("fill", color(i))
                 }
                 function clickHandler(d, i) { 
-                  const boro = d.properties.boro_name
-                  const languages = boroLanguages[boro]
-                  const langs = Object.keys(languages)
-                  const nums = Object.values(languages)
-                  const displayText = `${(langs[0])}: ${ nums[0] } \n 
-                    ${ (langs[1]) }: ${ nums[1] } \n 
-                    ${ (langs[2]) }: ${ nums[2] }`
+                  let boro = d.properties.boro_name
+                  let languages = boroLanguages[boro]
+                  let langs = Object.keys(languages)
+                  let nums = Object.values(languages)
                   
-                function languageClick(d, i) {
-                  const language = d
-                  let words;
-                  d3.json(`src/languages/${d.toLowerCase()}.json`, data => {
-                    d3.select(".words-yo").selectAll("text").remove()
-                    let words = d3.select(".words-yo")
-                    .selectAll("text")
-                    .data(data)
-                    .enter()
-                    .append("text")
-                    .text(function (d) {return `${d.word}: ${d.translation}, `})
-                    // let translations = d3.select(".words-yo")
-                    // .data(Object.values(data.words))
-                    // .enter()
-                    // .append("text")
+                    function languageClick(d, i) {
+                      const language = d
+                      let words;
+                      d3.json(`src/languages/${d.toLowerCase()}.json`, data => {
+                        d3.select(".words-yo").selectAll("text").remove()
+                        d3.select(".words-header").style("display", "block")
+                        let words = d3.select(".words-yo")
+                        .style("display", "block")
+                        .selectAll("text")
+                        .data(data)
+                        .enter()
+                        .append("text")
+                        .text(function (d) {
+                          if (d.word in d3.json('src/languages/english.json', data => {return Object.values(data)})) {
+                            return `${d.word}, \n` 
+                          } else {
+                          return `${d.word}: ${d.translation}, \n`}
+                        })
+                        // let translations = d3.select(".words-yo")
+                        // .data(Object.values(data.words))
+                        // .enter()
+                        // .append("text")
 
-                    // d3.select(".words-yo").selectAll("text").remove()
-                    // d3.select(".words-yo")
-                    // .append("text")
-                    // select individual word/text element
-                    // translations.text(Object.values(data.words))
-                    // .selectAll("p").data()
-                    .enter()
-                    // .append("p")
-                    .attr("font-size", 15)
-                    .attr("position", "absolute")
-                    .attr("top", "25em")
-                    .attr("left", "25em")
-                  })
-                  
-                }
-                  
-                  // console.log(langs)
-                  // console.log(nums)
-                  // console.log(languages)
+                        // d3.select(".words-yo").selectAll("text").remove()
+                        // d3.select(".words-yo")
+                        // .append("text")
+                        // select individual word/text element
+                        // translations.text(Object.values(data.words))
+                        // .selectAll("p").data()
+                        .enter()
+                        // .append("p")
+                        .attr("font-size", 15)
+                        .attr("position", "absolute")
+                        .attr("top", "25em")
+                        .attr("left", "25em")
+                      })
+                      
+                    }
+                      
+                      // console.log(langs)
+                      // console.log(nums)
+                      // console.log(languages)
 
-                  d3.select(".languages")
-                  .selectAll("input").remove()
-                  d3.select(".languages")
-                  .selectAll("input")
-                  .data(Object.keys(languages))
-                  .enter()
-                  .append("input")
-                  .attr("type", "button")
-                  .attr("class", "button")
-                  .attr("value", (d) => { return d; })
-                  .style("min-height", "75px")
-                  .on("click", (languageClick))
-                  
-      }
+                      d3.select(".languages")
+                      .selectAll("input").remove()
+                      d3.select(".languages")
+                      .selectAll("input")
+                      .data(langs)
+                      .enter()
+                      .append("input")
+                      .attr("type", "button")
+                      .attr("class", "button")
+                      .attr("value", (d) => { return d; })
+                      .style("min-height", "75px")
+                      .on("click", (languageClick))
+                      
+          }
             });
 
             </script>
