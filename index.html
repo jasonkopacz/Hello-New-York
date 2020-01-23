@@ -38,7 +38,7 @@
     <style>
 
 
-      .name {
+       .name {
         position: absolute;
         bottom: 1em;
         right: 16em;
@@ -78,8 +78,8 @@
         position: absolute;
         top: 7em;
         left: .7em;
-        width: 300px;
-        height: 400px;
+        width: 250px;
+        height: 500px;
         font-family: 'Cinzel', serif;
       }
 
@@ -90,6 +90,7 @@
         background-color: transparent;
         color: white;
         font-family: 'Cinzel', serif;
+        width: -webkit-fill-available;
       }
 
       .languages input:hover {
@@ -99,7 +100,6 @@
       
 
       .words-yo {
-        /* background-color: rgb(158, 202, 225); */
         width: 35%;
         height:fit-content;
         column-count: 3;
@@ -162,24 +162,7 @@
         let svg = d3.select(".map").append("svg")
             .attr("width", width)
             .attr("height", height);
-
-            let g = svg.append("g");
-            // g.append("rect")
-            //   .attr("x", 10)
-            //   .attr("y", 10)
-            //   .attr("width", 300)
-            //   .attr("height", 450)
-            //   .attr("stroke", "rgb(107, 174, 214)")
-            //   .attr("fill", "white")
-              // g.append("rect")
-              // .attr("x", 500)
-              // .attr("y", 500)
-              // .attr("width", 500)
-              // .attr("height", 500)
-              // .attr("stroke", "rgb(107, 174, 214)")
-              // .attr("fill", "white")
-              
-            
+            let g = svg.append("g");           
             d3.json("borough_boundaries.geojson", function (boroughs) {
               let projection = d3.geoMercator()
                 .center([-73.94, 40.70])
@@ -247,8 +230,6 @@
                             .enter()
                             .append("text")
                             .text(function (d) { debugger;return `${d.word} \n` })
-                            // .transition()
-                            // .styleTween("display", function () { return d3.interpolate("none", "block"); })
                         })
                       } else {
                       d3.json(`src/languages/${d.toLowerCase()}.json`, data => {
@@ -262,35 +243,21 @@
                         .enter()
                         .append("text")
                         .text(function (d) {return `${d.word}: ${d.translation} \n`})
-                        // let translations = d3.select(".words-yo")
-                        // .data(Object.values(data.words))
-                        // .enter()
-                        // .append("text")
-
-                        // d3.select(".words-yo").selectAll("text").remove()
-                        // d3.select(".words-yo")
-                        // .append("text")
-                        // select individual word/text element
-                        // translations.text(Object.values(data.words))
-                        // .selectAll("p").data()
                         .enter()
-                        // .append("p")
                         .attr("font-size", 15)
                         .attr("position", "absolute")
                         .attr("top", "25em")
                         .attr("left", "25em")
                       })
-                      }
-                      
-                    }
-                      
-                      // console.log(langs)
-                      // console.log(nums)
-                      // console.log(languages)
-
+                    } 
+                  }
                       d3.select(".languages")
                       .selectAll("input").remove()
                       d3.select(".languages")
+                      .selectAll("text").remove()
+                      d3.select(".languages")
+                      .append("text")
+                      .text("Click A Language")
                       .selectAll("input")
                       .data(langs)
                       .enter()
