@@ -26,7 +26,7 @@
     "d3-ease": "^1.0.6",
     "fibers": "^4.0.1",
     "mini-css-extract-plugin": "^0.8.0",
-    "node-sass": "^4.12.0",
+    "node-sass": "^4.13.1",
     "pdf-parse": "^1.1.1",
     "pdfjs": "^2.3.2",
     "postcss-loader": "^3.0.0",
